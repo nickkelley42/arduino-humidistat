@@ -33,10 +33,7 @@ bool humidifier = true;
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("DHTxx test!");
-
   dht.begin();
-
   pinMode(LED_BUILTIN, OUTPUT); 
 }
 

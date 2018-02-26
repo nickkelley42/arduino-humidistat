@@ -18,8 +18,8 @@
 // Humidifier will only turn on when humidity drops below minimum,
 // and will remain on until above the maximum.
 
-#define MIN 40
-#define MAX 60
+#define MIN 45
+#define MAX 55
 
 // Connect pin 1 (on the left) of the sensor to +3.3V
 // Connect pin 2 of the sensor to whatever your DHTPIN is

@@ -53,6 +53,7 @@ void loop() {
     Serial.println("Failed to read from DHT sensor!\n");
     digitalWrite(LED_BUILTIN, LOW);
     Serial.println("Turning on humidifier just in case.\n");
+    humidifier = 1;
     
     return;
   }

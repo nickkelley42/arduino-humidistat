@@ -5,11 +5,15 @@
 #include "DHT.h"
 
 #define DHTPIN 2     // what digital pin we're connected to
-#define DHTTYPE DHT22   // DHT 22  (AM2302), AM2321
 
-// Constants for maximum and minimum humidity.
-// Humidifier will only turn on when humidity drops
-// below minimum, and will remain on until above the maximum
+// Uncomment whatever sensor type you're using!
+//#define DHTTYPE DHT11   // DHT 11
+#define DHTTYPE DHT22   // DHT 22  (AM2302), AM2321
+//#define DHTTYPE DHT21   // DHT 21 (AM2301)
+
+// Constants for maximum and minimum humidity. Adjust for your needs.
+// Humidifier will only turn on when humidity drops below minimum,
+// and will remain on until above the maximum.
 
 #define MIN 40
 #define MAX 60
@@ -30,8 +34,7 @@ void setup() {
 
   dht.begin();
 
-  pinMode(LED_BUILTIN, OUTPUT);
-  
+  pinMode(LED_BUILTIN, OUTPUT); 
 }
 
 void loop() {

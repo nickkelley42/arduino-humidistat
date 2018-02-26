@@ -29,7 +29,11 @@
 // Initialize DHT sensor.
 DHT dht(DHTPIN, DHTTYPE);
 
+// humidifier running state
 bool humidifier = true;
+// highest and lowest recorded values
+// (initialized to impossible values so it updates on the first loop)
+float high = 0, low = 100;
 
 void setup() {
   Serial.begin(9600);
@@ -66,9 +70,20 @@ void loop() {
     digitalWrite(LED_BUILTIN, HIGH);
     humidifier = false;
   }
-  
+
+  // Check current humidity against high and low values, and update if necessary.
+  if (h > high) {
+    high = h;
+  }
+  if (h < low) {
+    low = h;
+  }
   
   Serial.print("Humidity: ");
   Serial.print(h);
+  Serial.print("\t\tHigh: ");
+  Serial.print(high);
+  Serial.print("\tLow: ");
+  Serial.print(low);
   Serial.print("\n");
 }

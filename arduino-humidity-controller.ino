@@ -1,6 +1,9 @@
 //  Nick Kelley Humidifier Control
-//  Uses DHT22 humidity/temperature sensor, controls relay
+//  Uses DHT22 humidity/temperature sensor to control relay
 //  based on current humidity.
+//  Requires Adafruit's DHT library:
+//  https://learn.adafruit.com/dht/downloads
+//  Thanks to ladyada and adafruit.com!
 
 #include "DHT.h"
 

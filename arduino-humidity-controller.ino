@@ -39,7 +39,9 @@ float high = 0, low = 100;
 void setup() {
   Serial.begin(9600);
   dht.begin();
-  pinMode(RELAYPIN, OUTPUT); 
+  pinMode(RELAYPIN, OUTPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(LED_BUILTIN, LOW); // Because I'm OCD and don't want the LED on.
 }
 
 void loop() {

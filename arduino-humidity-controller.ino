@@ -7,7 +7,8 @@
 
 #include "DHT.h"
 
-#define DHTPIN 2     // what digital pin we're connected to
+#define DHTPIN 2      // the sensor input pin
+#define RELAYPIN 12   // the relay output pin
 
 // Uncomment whatever sensor type you're using!
 //#define DHTTYPE DHT11   // DHT 11
@@ -38,7 +39,7 @@ float high = 0, low = 100;
 void setup() {
   Serial.begin(9600);
   dht.begin();
-  pinMode(LED_BUILTIN, OUTPUT); 
+  pinMode(RELAYPIN, OUTPUT); 
 }
 
 void loop() {
@@ -52,7 +53,7 @@ void loop() {
   // Check if any reads failed and exit early (to try again).
   if (isnan(h)) {
     Serial.println("Failed to read from DHT sensor!\n");
-    digitalWrite(LED_BUILTIN, LOW);
+    digitalWrite(RELAYPIN, LOW);
     Serial.println("Turning on humidifier just in case.\n");
     humidifier = 1;
     
@@ -63,11 +64,11 @@ void loop() {
   // Else, if h > 50%, turn it off.
   if (!humidifier && (h < MIN)) {
     Serial.print("Humidity less than MIN, turning on humidifier \n");
-    digitalWrite(LED_BUILTIN, LOW);
+    digitalWrite(RELAYPIN, LOW);
     humidifier = true;
   } else if (humidifier && (h > MAX)) {
     Serial.print("Humidity greater than MAX, turning off humidifier \n");
-    digitalWrite(LED_BUILTIN, HIGH);
+    digitalWrite(RELAYPIN, HIGH);
     humidifier = false;
   }
 

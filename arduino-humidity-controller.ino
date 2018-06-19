@@ -52,7 +52,10 @@ void setup() {
 
   //check to make sure that EEPROM is setup correctly for the sketch
   if(EEPROM.read(ISSETUP) != 42) {
+    // set ISSETUP to 42 to pass the test on next boot
     EEPROM.write(ISSETUP, 42);
+    // set high/low values for temp and humidity to impossible values
+    // they will be overwritten on the first loop
     EEPROM.write(HIGHESTHUM, 0);
     EEPROM.write(LOWESTHUM, 100);
     EEPROM.write(HIGHESTTEMP, 0);
@@ -120,5 +123,5 @@ void loop() {
   Serial.print(EEPROM.read(HIGHESTTEMP));
   Serial.print("\tLow: ");
   Serial.print(EEPROM.read(LOWESTTEMP));
-  Serial.print("\n\n\n");
+  Serial.print("\n\n");
 }

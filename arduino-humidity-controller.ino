@@ -104,10 +104,10 @@ void loop() {
   
   // Check current temp against high and low values, and update if necessary.
   if (t > EEPROM.read(HIGHESTTEMP)) {
-    EEPROM.write(HIGHESTTEMP, h);
+    EEPROM.write(HIGHESTTEMP, t);
   }
   if (t < EEPROM.read(LOWESTTEMP)) {
-    EEPROM.write(LOWESTTEMP, h);
+    EEPROM.write(LOWESTTEMP, t);
   }
   
   Serial.print("Humidity: ");

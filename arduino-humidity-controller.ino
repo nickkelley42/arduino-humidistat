@@ -42,6 +42,7 @@ bool humidifier = true;
 // check if this EEPROM address is a specific value to make sure that
 // it's (probably) set up for this sketch correctly.
 #define ISSETUP 0
+#define CHECKNUM 42
 
 void setup() {
   Serial.begin(9600);
@@ -50,16 +51,17 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
   digitalWrite(LED_BUILTIN, LOW); // Because I'm OCD and don't want the LED on.
 
+  
   //check to make sure that EEPROM is setup correctly for the sketch
-  if(EEPROM.read(ISSETUP) != 42) {
-    // set ISSETUP to 42 to pass the test on next boot
-    EEPROM.write(ISSETUP, 42);
+  if(EEPROM.read(ISSETUP) != CHECKNUM) {
+    // set ISSETUP to CHECKNUM to pass the test on next boot
+    EEPROM.update(ISSETUP, CHECKNUM);
     // set high/low values for temp and humidity to impossible values
     // they will be overwritten on the first loop
-    EEPROM.write(HIGHESTHUM, 0);
-    EEPROM.write(LOWESTHUM, 100);
-    EEPROM.write(HIGHESTTEMP, 0);
-    EEPROM.write(LOWESTTEMP, 255);
+    EEPROM.update(HIGHESTHUM, 0);
+    EEPROM.update(LOWESTHUM, 100);
+    EEPROM.update(HIGHESTTEMP, 0);
+    EEPROM.update(LOWESTTEMP, 255);
   }
 }
 
@@ -70,7 +72,7 @@ void loop() {
   // Reading temperature or humidity takes about 250 milliseconds!
   // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
   float h = dht.readHumidity();
-  float t = dht.readTemperature();
+  float t = dht.readTemperature(true);
 
   // Check if any reads failed and exit early (to try again).
   if (isnan(h)) {
@@ -96,18 +98,18 @@ void loop() {
 
   // Check current humidity against high and low values, and update if necessary.
   if (h > EEPROM.read(HIGHESTHUM)) {
-    EEPROM.write(HIGHESTHUM, h);
+    EEPROM.update(HIGHESTHUM, h);
   }
   if (h < EEPROM.read(LOWESTHUM)) {
-    EEPROM.write(LOWESTHUM, h);
+    EEPROM.update(LOWESTHUM, h);
   }
   
   // Check current temp against high and low values, and update if necessary.
   if (t > EEPROM.read(HIGHESTTEMP)) {
-    EEPROM.write(HIGHESTTEMP, t);
+    EEPROM.update(HIGHESTTEMP, t);
   }
   if (t < EEPROM.read(LOWESTTEMP)) {
-    EEPROM.write(LOWESTTEMP, t);
+    EEPROM.update(LOWESTTEMP, t);
   }
   
   Serial.print("Humidity: ");
